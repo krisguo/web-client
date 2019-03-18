@@ -14,6 +14,9 @@
           </router-link>
 
           <router-link
+            v-if="
+              getModule().canRenderSubmodule(SaleCampaignViewerPseudoModule)
+            "
             :to="{ ...vueRoutes.saleCampaign, params: { id: id } }"
           >
             <span>
@@ -84,6 +87,8 @@ import Loader from '@/vue/common/Loader'
 import Drawer from '@/vue/common/Drawer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
+import { SaleCampaignViewerPseudoModule } from '@/modules-arch/pseudo-modules/sale-campaign-viewer-pseudo-module'
+
 import InvestForm from '@/vue/forms/InvestForm'
 
 import { SaleRecord } from '@/js/records/entities/sale.record'
@@ -115,6 +120,7 @@ export default {
     isLoadingFailed: false,
     isInvestDrawerShown: false,
     vueRoutes,
+    SaleCampaignViewerPseudoModule,
   }),
 
   async created () {

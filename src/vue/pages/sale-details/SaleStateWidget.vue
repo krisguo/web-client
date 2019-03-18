@@ -8,12 +8,11 @@
       <sale-overview :sale="sale" />
     </drawer>
 
-    <!-- <chart
-      :base-asset="sale.baseAsset"
-      :quote-asset="sale.defaultQuoteAsset"
-      :show-tabs="false"
-      :show-ticks="false"
-    /> -->
+    <submodule-importer
+      v-if="getModule().canRenderSubmodule(SaleStateWidgetChartPseudoModule)"
+      :submodule="getModule().getSubmodule(SaleStateWidgetChartPseudoModule)"
+      :sale="sale"
+    />
 
     <p class="sale-state-widget__invested">
       <!-- eslint-disable-next-line max-len -->
@@ -60,18 +59,17 @@
 import VueMarkdown from 'vue-markdown'
 
 import Drawer from '@/vue/common/Drawer'
-// import Chart from '@/vue/common/chart/Chart'
 
 import SaleOverview from './SaleOverview'
 
 import { SaleRecord } from '@/js/records/entities/sale.record'
+import { SaleStateWidgetChartPseudoModule } from '@/modules-arch/pseudo-modules/sale-state-widget-pseudo-module'
 
 export default {
   name: 'sale-state-widget',
   components: {
     Drawer,
     VueMarkdown,
-    // Chart,
     SaleOverview,
   },
 
@@ -81,6 +79,7 @@ export default {
 
   data: _ => ({
     isOverviewDrawerShown: false,
+    SaleStateWidgetChartPseudoModule,
   }),
 }
 </script>

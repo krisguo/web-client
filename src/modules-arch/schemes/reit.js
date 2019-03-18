@@ -29,6 +29,8 @@ import { WithdrawalFiatCardModule } from '@/vue/modules/withdrawal-fiat-card/mod
 import { WithdrawalFiatBankModule } from '@/vue/modules/withdrawal-fiat-bank/module'
 import { DividendFormModule } from '@/vue/modules/dividend-form/module'
 import { CreateAssetSaleModule } from '@/vue/modules/create-opportunity/module'
+import { SaleStateWidgetPseudoModule } from '@/modules-arch/pseudo-modules/sale-state-widget-pseudo-module'
+import { SaleCampaignViewerPseudoModule } from '@/modules-arch/pseudo-modules/sale-campaign-viewer-pseudo-module'
 
 export default {
   importEnLocaleFile () {
@@ -160,17 +162,21 @@ export default {
           path: '/opportunities/:id',
           name: vueRoutes.saleDetails.name,
           meta: { pageNameTranslationId: 'pages-names.fund-details' },
-          redirect: to => ({ ...vueRoutes.saleCampaign, params: to.params }),
           props: true,
-          children: [
-            {
+        },
+        isAutoRedirectToFirstChild: true,
+        submodules: [
+          new SaleCampaignViewerPseudoModule({
+            routerEntry: {
               path: '/opportunities/:id/campaign',
               name: vueRoutes.saleCampaign.name,
-              component: _ => import('@/vue/pages/sale-details/SaleCampaignViewer'),
               props: true,
             },
-          ],
-        },
+            submodules: [
+              new SaleStateWidgetPseudoModule(),
+            ],
+          }),
+        ],
       },
     ),
 

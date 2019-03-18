@@ -7,7 +7,11 @@
       </div>
 
       <div class="sale-campaign-viewer__state">
-        <sale-state-widget :sale="sale" />
+        <submodule-importer
+          v-if="getModule().canRenderSubmodule(SaleStateWidgetPseudoModule)"
+          :submodule="getModule().getSubmodule(SaleStateWidgetPseudoModule)"
+          :sale="sale"
+        />
       </div>
     </div>
   </div>
@@ -16,21 +20,24 @@
 <script>
 import SaleLogoViewer from './SaleLogoViewer'
 import SaleDescriptionViewer from './SaleDescriptionViewer'
-import SaleStateWidget from './SaleStateWidget'
 
 import { SaleRecord } from '@/js/records/entities/sale.record'
+import { SaleStateWidgetPseudoModule } from '@/modules-arch/pseudo-modules/sale-state-widget-pseudo-module'
 
 export default {
   name: 'sale-campaign-viewer',
   components: {
     SaleLogoViewer,
     SaleDescriptionViewer,
-    SaleStateWidget,
   },
 
   props: {
     sale: { type: SaleRecord, required: true },
   },
+
+  data: () => ({
+    SaleStateWidgetPseudoModule,
+  }),
 }
 </script>
 

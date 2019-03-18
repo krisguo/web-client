@@ -548,8 +548,7 @@ export default {
           maturityDate: maturityDate,
           annualReturn: {
             required,
-            amountRange: amountRange('0',
-              this.maxAmount),
+            amountRange: amountRange('0', this.maxAmount),
           },
         },
         saleInformation: {
@@ -561,8 +560,10 @@ export default {
           },
           hardCap: {
             required,
-            amountRange: amountRange(this.form.saleInformation.softCap,
-              this.maxAmount),
+            amountRange: amountRange(
+              this.form.saleInformation.softCap,
+              this.maxAmount
+            ),
           },
           quoteAssets: {
             requiredAtLeastOne,
